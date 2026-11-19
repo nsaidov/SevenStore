@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.StringJoiner;
+
 @Service
 public class ProductService {
 
@@ -16,19 +18,32 @@ public class ProductService {
     }
 
     @Transactional
-    public Product createProduct(@RequestBody Product product){
+    public StringJoiner createProduct(@RequestBody Product product){
+
+        StringJoiner resultOfRequest = new StringJoiner("; ");
+
         if (product.getName() == null){
-            throw new IllegalArgumentException("Название номенклатуры не заполнено");
+            resultOfRequest.add("Название номенклатуры не заполнено");
         }
 
         if (product.getUnitSale() == null){
-            throw new IllegalArgumentException("Единица измерения продажи не заполнена");
+            resultOfRequest.add("Единица измерения продажи не заполнена");
         }
 
         if (product.getUnitPurchase() == null){
-            throw new IllegalArgumentException("Единица измерения закупки не заполнена");
+            resultOfRequest.add("Единица измерения закупки не заполнена");
         }
 
-        return productRepository.save(product);
+        if (resultOfRequest.length() > 0){
+            return resultOfRequest;
+        } else if (product.getIsActive() == null) {
+            product.setIsActive(true);
+        }
+
+        product.setCode(String.format("%05d",productRepository.count()+1));
+
+        productRepository.save(product);
+
+        return resultOfRequest;
     }
 }
