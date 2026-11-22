@@ -25,7 +25,7 @@ public class Product {
     private Unit unitPurchase;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     @Column(nullable = false, unique = true)
     private String code;

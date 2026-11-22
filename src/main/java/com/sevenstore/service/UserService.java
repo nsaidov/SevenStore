@@ -17,13 +17,13 @@ public class UserService {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final Random RANDOM = new SecureRandom();
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Transactional
-    public Boolean createUser(@RequestBody User user){
-        if (user.getName() == null || user.getName().equals("")){
+    public Boolean createUser(@RequestBody User user) {
+        if (user.getName() == null || user.getName().equals("")) {
             return false;
         }
 

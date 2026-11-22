@@ -5,7 +5,6 @@ import com.sevenstore.repository.ProductRepository;
 import com.sevenstore.security.CheckApiKey;
 import com.sevenstore.service.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +39,20 @@ public class ProductController {
             ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, resultOfRequest.toString());
             return ResponseEntity.badRequest().body(problemDetail);
         }
+        return ResponseEntity.ok().build();
+    }
+
+    @CheckApiKey
+    @PatchMapping
+    public ResponseEntity<?> editProduct(@RequestBody Product product){
+
+        String resultOfRequest = productService.editProduct(product);
+
+        if (!resultOfRequest.isEmpty()) {
+            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, resultOfRequest);
+            return ResponseEntity.badRequest().body(problemDetail);
+        }
+
         return ResponseEntity.ok().build();
     }
 }
