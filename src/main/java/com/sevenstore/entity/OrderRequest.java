@@ -6,14 +6,14 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
 public class OrderRequest {
+    Long orderId;
     String name;
     private LocalDateTime createdAt;
     private Boolean isActive;
-    private Long version;
     private List<OrderItemRequest> items = new ArrayList<>();
+    private String param;
 }

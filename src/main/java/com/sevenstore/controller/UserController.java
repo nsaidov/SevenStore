@@ -1,7 +1,6 @@
 package com.sevenstore.controller;
 
 import com.sevenstore.entity.User;
-import com.sevenstore.repository.UserRepository;
 import com.sevenstore.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
